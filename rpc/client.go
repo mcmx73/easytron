@@ -2,9 +2,9 @@ package rpc
 
 import "net/http"
 
-type ClientWith func(*Client)
+type WithOption func(*Client)
 
-func NewClient(options ...ClientWith) (c *Client) {
+func NewClient(options ...WithOption) (c *Client) {
 	c = &Client{}
 	for _, opt := range options {
 		opt(c)
