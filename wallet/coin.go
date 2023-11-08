@@ -1,7 +1,8 @@
 package wallet
 
+type CoinId string
 type CoinDescription struct {
-	Id       uint8  `json:"id"`
+	Id       CoinId `json:"id"`
 	Title    string `json:"title"`
 	Symbol   string `json:"symbol"`
 	Decimals int    `json:"decimals"`

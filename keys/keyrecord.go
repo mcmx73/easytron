@@ -1,10 +1,21 @@
 package keys
 
-//"crypto/ecdsa"
+import "crypto/ecdsa"
 
-type Key struct {
+// "crypto/ecdsa"
+type WithOption func(*Key)
+
+func NewKey(options ...WithOption) *Key {
+	k := &Key{}
+	for _, opt := range options {
+		opt(k)
+	}
+	return k
 }
 
-func NewKey() *Key {
-	return &Key{}
+type Key struct {
+	address    string
+	pubKey     string
+	pkString   string
+	privateKey *ecdsa.PrivateKey
 }
