@@ -15,8 +15,10 @@ func NewManager(options ...WithOption) *Manager {
 }
 
 type Manager struct {
-	mux     sync.RWMutex
-	clients map[CoinId]Blockchain
+	mux          sync.RWMutex
+	clients      map[CoinId]Blockchain
+	coinsById    map[CoinId]*CoinDescription
+	coinsByTitle map[string]*CoinDescription
 }
 
 func (m *Manager) AddCoin(client Blockchain) {
@@ -24,6 +26,8 @@ func (m *Manager) AddCoin(client Blockchain) {
 	defer m.mux.Unlock()
 	coins := client.GetCoins()
 	for _, coin := range coins {
+		m.coinsById[coin.Id] = coin
+		m.coinsByTitle[coin.Title] = coin
 		m.clients[coin.Id] = client
 	}
 }
