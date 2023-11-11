@@ -1,3 +1,5 @@
 .idea
 easytron.iml
 api-key.txt
+common/seedphrase/bitwise_test.go
+key/key_test.go

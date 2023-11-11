@@ -24,7 +24,6 @@ func generateAddress() (privateKeyHex, address string, err error) {
 	address = base58.CheckEncode(addressBytes, TRON_NETID)
 	return privateKeyHex, address, nil
 }
-
 func generateKey() (*ecdsa.PrivateKey, error) {
 	return ecdsa.GenerateKey(secp256k1.P256k1(), rand.Reader)
 }
