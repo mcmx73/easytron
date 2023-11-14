@@ -21,6 +21,12 @@ func TestECDSAKeys(t *testing.T) {
 	recoveredPKHex := hexutil.Encode(recoveredPKBytes)
 	t.Log(pubHex, "\n", privateHex, "\n", recoveredPKHex)
 	if privateHex != recoveredPKHex {
-		t.Error("Private key mismatch")
+		t.Error("ECDSAKeysFromPrivateKeyBytes: Private key mismatch")
+	}
+	recoveredFromHex, _ := ECDSAKeysFromPrivateKeyHex(privateHex)
+	recoveredFromHexBytes := BytesFromECDSAPrivateKey(recoveredFromHex)
+	recoveredFromHexHex := hexutil.Encode(recoveredFromHexBytes)
+	if privateHex != recoveredFromHexHex {
+		t.Error("ECDSAKeysFromPrivateKeyHex: Private key mismatch")
 	}
 }

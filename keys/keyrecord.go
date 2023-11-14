@@ -14,8 +14,7 @@ func NewKey(options ...WithOption) *Key {
 }
 
 type Key struct {
-	address    string
-	pubKey     string
-	pkString   string
+	PublicKey  string
+	PrivateKey string
 	privateKey *ecdsa.PrivateKey
 }

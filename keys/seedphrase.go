@@ -1,6 +1,6 @@
 package keys
 
-func (k *Key) GetSeedPhrase() string {
+func (k *Key) GetKeyBackupPhrase() string {
 
 	return ""
 }
