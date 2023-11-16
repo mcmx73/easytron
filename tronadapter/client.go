@@ -1,4 +1,4 @@
-package tronclient
+package tronadapter
 
 import "github.com/mcmx73/easytron/rpc"
 

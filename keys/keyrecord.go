@@ -3,9 +3,9 @@ package keys
 import "crypto/ecdsa"
 
 // "crypto/ecdsa"
-type WithOption func(*Key)
+type WithKeyOption func(*Key)
 
-func NewKey(options ...WithOption) *Key {
+func NewKey(options ...WithKeyOption) *Key {
 	k := &Key{}
 	for _, opt := range options {
 		opt(k)

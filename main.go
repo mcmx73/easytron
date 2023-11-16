@@ -1,9 +1,12 @@
 package main
 
 import (
+	"github.com/mcmx73/easytron/frontrpc"
+	"github.com/mcmx73/easytron/keys"
 	"github.com/mcmx73/easytron/rpc"
-	"github.com/mcmx73/easytron/tronclient"
+	"github.com/mcmx73/easytron/tronadapter"
 	"github.com/mcmx73/easytron/wallet"
+	"os"
 )
 
 // TODO crypto module for generate private key and address for Tron/Ethereum
@@ -19,7 +22,23 @@ func main() {
 	tronRpcClient := rpc.NewClient(
 		rpc.WithUrl("https://api.trongrid.io"),
 	)
-	tronClient := tronclient.NewClient(
-		tronclient.WithRpcClient(tronRpcClient),
+	tronAdapter := tronadapter.NewClient(
+		tronadapter.WithRpcClient(tronRpcClient),
 	)
+	keyManager := keys.NewManager()
+	walletManager = wallet.NewManager(
+		wallet.WithKeyManager(keyManager),
+	)
+	walletManager.AddCoin(tronAdapter)
+
+	serverOptions := []frontrpc.WithServerOption{
+		frontrpc.WithWalletManager(walletManager),
+	}
+
+	frontServer := frontrpc.NewServer(serverOptions...)
+	err := frontServer.Start()
+	if err != nil {
+		os.Exit(-1)
+	}
+	os.Exit(0)
 }

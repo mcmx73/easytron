@@ -1,4 +1,4 @@
-package tronclient
+package tronadapter
 
 type TronTransactionRawData struct {
 	Contract      []*TronTransactionInfo `json:"contract"`

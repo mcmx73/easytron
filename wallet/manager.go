@@ -1,6 +1,9 @@
 package wallet
 
-import "sync"
+import (
+	"github.com/mcmx73/easytron/keys"
+	"sync"
+)
 
 type WithOption func(*Manager)
 
@@ -16,6 +19,7 @@ func NewManager(options ...WithOption) *Manager {
 
 type Manager struct {
 	mux          sync.RWMutex
+	keyManager   *keys.Manager
 	clients      map[CoinId]Blockchain
 	coinsById    map[CoinId]*CoinDescription
 	coinsByTitle map[string]*CoinDescription

@@ -2,6 +2,7 @@ package keys
 
 import (
 	"github.com/mcmx73/easytron/common/hexutil"
+	"github.com/mcmx73/easytron/common/seedphrase"
 	"testing"
 )
 
@@ -29,4 +30,17 @@ func TestECDSAKeys(t *testing.T) {
 	if privateHex != recoveredFromHexHex {
 		t.Error("ECDSAKeysFromPrivateKeyHex: Private key mismatch")
 	}
+	backupPhrase, err := seedphrase.Bytes2Mnemonic(privateKeyBytes)
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log("Backup phrase:", backupPhrase)
+	recoveredFromBackup, err := seedphrase.Mnemonic2Bytes(backupPhrase)
+	if err != nil {
+		t.Error(err)
+	}
+	if hexutil.Encode(recoveredFromBackup) != privateHex {
+		t.Error("Backup phrase mismatch")
+	}
+	t.Log("Restored key:", hexutil.Encode(recoveredFromBackup))
 }
